@@ -17,7 +17,7 @@ class Movies extends Component {
 
   componentDidMount = () => {
     // set values here, until data comes from server
-    const genres = [{ name: "All movies" }, ...getGenres()];
+    const genres = [{ _id: "", name: "All movies" }, ...getGenres()];
     this.setState({ movies: getMovies(), genres });
   };
 
