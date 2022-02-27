@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { getMovies } from "../services/fakeMovieService.js";
 import { getGenres } from "../services/fakeGenreService";
-import Like from "./common/like";
+import MoviesTable from "./MoviesTable";
 import Pagination from "./common/Pagination";
 import Paginate from "./utils/Paginate";
 import ListGroup from "./common/ListGroup";
@@ -63,46 +63,11 @@ class Movies extends Component {
         </div>
         <div className="col">
           <p> Showing {filteredMovies.length} in database </p>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Genre</th>
-                <th>Stock</th>
-                <th>Rate</th>
-                <th>Like</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {moviesOnPage.map((movie) => {
-                return (
-                  <tr key={movie._id}>
-                    <td>{movie.title}</td>
-                    <td>{movie.genre.name}</td>
-                    <td>{movie.numberInStock}</td>
-                    <td>{movie.dailyRentalRate}</td>
-                    <td>
-                      <Like
-                        liked={movie.liked}
-                        onClick={() => this.handleLike(movie)}
-                      />
-                    </td>
-                    <td>
-                      <button
-                        className="btn btn-danger"
-                        onClick={() => {
-                          this.handleDeleteMovie(movie._id);
-                        }}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          <MoviesTable
+            movies={moviesOnPage}
+            onLike={this.handleLike}
+            onDelete={this.handleDeleteMovie}
+          />
           <Pagination
             itemsCount={filteredMovies.length}
             pageSize={this.state.pageSize}
